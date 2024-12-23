@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Game Hub</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <header>
+        <h1>Mini Game Hub</h1>
+        <nav>
+            <button id="hub-btn">Game Hub</button>
+            <button id="tic-tac-toe-btn">Tic-Tac-Toe</button>
+            <button id="snake-btn">Snake Game</button>
+            <button id="memory-btn">Memory Match</button>
+        </nav>
+    </header>
+    <main>
+        <section id="hub" class="active">
+            <h2>Welcome to the Mini Game Hub</h2>
+            <p>Select a game from the menu to start playing!</p>
+        </section>
+        <section id="tic-tac-toe">
+            <h2>Tic-Tac-Toe</h2>
+            <div id="tic-tac-toe-board"></div>
+            <p id="tic-tac-toe-result"></p>
+            <button id="tic-tac-toe-reset">Reset Game</button>
+        </section>
+        <section id="snake" class="game-section">
+            <h1>Snake Game</h1>
+            <div id="snake-score">Score: 0</div>
+
+            <!-- Snake Game Canvas -->
+            <canvas id="snake-canvas" width="400" height="400"></canvas>
+
+            <!-- Control Buttons -->
+            <div class="control-buttons">
+                <button id="start-button">Start Game</button>
+                <button id="pause-button" disabled>Pause Game</button>
+            </div>
+        </section>
+        <section id="memory">
+            <h2>Memory Match Game</h2>
+            <div id="memory-board"></div>
+            <p id="memory-result"></p>
+        </section>
+    </main>
+    <script src="index.js"></script>
+</body>
+
+</html>
