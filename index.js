@@ -70,7 +70,7 @@ document.getElementById('tic-tac-toe-reset').addEventListener('click', () => {
 
 renderBoard();
 
-// Snake Game Logic
+
 const snakeCanvas = document.getElementById('snake-canvas');
 const ctx = snakeCanvas.getContext('2d');
 const startButton = document.getElementById('start-button');
@@ -99,7 +99,7 @@ function draw() {
     ctx.fillStyle = 'red';
     ctx.fillRect(food.x, food.y, gridSize, gridSize);
 
-    // Draw score
+    // Update score
     document.getElementById('snake-score').textContent = `Score: ${score}`;
 }
 
@@ -148,19 +148,41 @@ function togglePause() {
     if (isPaused) {
         isPaused = false;
         pauseButton.textContent = "Pause Game";
-        startGame(); // Resume game
+        gameInterval = setInterval(() => {
+            if (!isPaused) {
+                moveSnake();
+                draw();
+            }
+        }, 100); // Resume the game loop
     } else {
         isPaused = true;
         pauseButton.textContent = "Resume Game";
-        clearInterval(gameInterval); // Pause game
+        clearInterval(gameInterval); // Pause the game loop
     }
 }
 
 function resetGame() {
+    clearInterval(gameInterval);
+    gameStarted = false;
+    isPaused = false;
+    pauseButton.textContent = "Pause Game";
+    pauseButton.disabled = true;
+    startButton.disabled = false;
+
+    // Reset snake position and direction
     snake = [{ x: 160, y: 200 }, { x: 140, y: 200 }, { x: 120, y: 200 }];
     direction = 'RIGHT';
+
+    // Reset food and score
     food = { x: 80, y: 80 };
     score = 0;
+
+    // Clear the canvas
+    ctx.clearRect(0, 0, canvasSize, canvasSize);
+
+    // Redraw initial state
+    draw();
+    document.getElementById('snake-score').textContent = `Score: ${score}`;
 }
 
 function startGame() {
@@ -171,7 +193,7 @@ function startGame() {
                 moveSnake();
                 draw();
             }
-        }, 100);
+        }, 100); // Start the game loop
         gameStarted = true;
         pauseButton.disabled = false;
         startButton.disabled = true;
