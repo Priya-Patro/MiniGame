@@ -70,67 +70,6 @@ document.getElementById('tic-tac-toe-reset').addEventListener('click', () => {
 
 renderBoard();
 
-// Memory Match Game Logic
-const memoryBoard = document.getElementById('memory-board');
-const memoryResult = document.getElementById('memory-result');
-let memoryCards = [];
-let flippedCards = [];
-let matchedCards = [];
-
-const cardValues = ['🍎', '🍌', '🍇', '🍓', '🍉', '🍍', '🍊', '🍒'];
-const cards = [...cardValues, ...cardValues]; // Duplicate for matching pairs
-
-// Shuffle function to randomize the cards
-function shuffle(array) {
-    return array.sort(() => Math.random() - 0.5);
-}
-
-// Create memory game cards
-function createMemoryBoard() {
-    memoryCards = shuffle(cards);
-    memoryBoard.innerHTML = memoryCards.map((card, index) => `
-    <div class="memory-card" data-index="${index}">
-      <div class="card-inner">
-        <div class="card-front">?</div>
-        <div class="card-back">${card}</div>
-      </div>
-    </div>
-  `).join('');
-}
-
-memoryBoard.addEventListener('click', (e) => {
-    const card = e.target.closest('.memory-card');
-    if (card && !flippedCards.includes(card) && flippedCards.length < 2) {
-        flipCard(card);
-        flippedCards.push(card);
-    }
-
-    if (flippedCards.length === 2) {
-        setTimeout(checkMatch, 1000);
-    }
-});
-
-function flipCard(card) {
-    card.classList.add('flipped');
-}
-
-function checkMatch() {
-    const [firstCard, secondCard] = flippedCards;
-    if (memoryCards[firstCard.dataset.index] === memoryCards[secondCard.dataset.index]) {
-        matchedCards.push(firstCard, secondCard);
-        memoryResult.textContent = `${matchedCards.length / 2} Matches Found!`;
-        if (matchedCards.length === cards.length) {
-            memoryResult.textContent = 'You Win!';
-        }
-    } else {
-        firstCard.classList.remove('flipped');
-        secondCard.classList.remove('flipped');
-    }
-    flippedCards = [];
-}
-
-createMemoryBoard();
-
 // Snake Game Logic
 const snakeCanvas = document.getElementById('snake-canvas');
 const ctx = snakeCanvas.getContext('2d');
